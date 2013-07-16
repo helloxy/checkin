@@ -19,14 +19,16 @@ var list = [
 ]
 
 exports.findByUid = function(uid,cb) {
-    _.each(list,function(index,item){
-        if (uid && uid == item.uid) {
-            cb(item)
-        }
-    })
+    if (uid) {
+        _.each(list,function(item,index){
+            if (uid == item.uid) {
+                cb(item)
+            }
+        });
+    }
 }
 
-exports.findByUidAndUpdate = function(uid,body) {
+exports.findByUidAndUpdate = function(uid,body,cb) {
     exports.findByUid(uid,function(person) {
         person[body.key] = body.value;
         cb(person);

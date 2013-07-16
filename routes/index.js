@@ -2,11 +2,11 @@
  * GET home page.
  */
 
-var list = require('../list').people;
+var list = require('../list');
 
 exports.index = function(req,res,next) {
     res.render('index',{
-        list: list
+        list: list.people
     });
 }
 
@@ -16,6 +16,9 @@ exports.checkin = function(req,res,next) {
         key: 'stat',
         value: 'here'
     },function(newPerson){
-        res.render('ok',newPerson)
+        console.log('ok')
+        res.render('ok',{
+            person: newPerson
+        })
     });
 }
