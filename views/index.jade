@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .list.clearfix
+    - if (list && list.length > 0) 
+        - each person in list
+            .person.clearfix
+                h3.title #{person.name}
+                p.desc #{person.desc}
+                p.email #{person.email}
+                a.check-in(href="/api/checkin/#{person.uid}") 签到

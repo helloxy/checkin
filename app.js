@@ -4,12 +4,12 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , fs = require('fs');
 
 var app = express();
+var pkg = JSON.parse(fs.readFileSync('./package.json'));
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,9 +30,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.locals({
+    sys: pkg
+});
+app.get('/', require('./routes/index').index);
+app.get('/api/checkin/:uid', require('./routes/index').checkin)
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Checkin server listening on port ' + app.get('port'));
 });
