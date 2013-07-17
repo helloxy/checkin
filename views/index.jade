@@ -8,4 +8,7 @@ block content
                 h3.title #{person.name}
                 p.desc #{person.desc}
                 p.email #{person.email}
-                a.check-in(href="/api/checkin/#{person.uid}") 签到
+                - if (person.stat == 'null') 
+                    a.check-in(href="/api/checkin/#{person.uid}") 签到
+                - else 
+                    a.check-in 已签到

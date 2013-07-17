@@ -33,6 +33,7 @@ if ('development' == app.get('env')) {
 app.locals({
     sys: pkg
 });
+
 app.get('/', require('./routes/index').index);
 app.get('/api/checkin/:uid', require('./routes/index').checkin)
 
